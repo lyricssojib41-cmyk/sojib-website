@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All iOS Premium Apps - Sojib Store</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', 'Anek Bangla', sans-serif; }
+        body { background-color: #070a12; color: #fff; padding: 20px; position: relative; min-height: 100vh; }
+        
+        /* Header */
+        .header-bar {
+            max-width: 1100px; margin: 0 auto 30px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .back-btn {
+            color: #38bdf8; text-decoration: none; font-weight: 600;
+            display: flex; align-items: center; gap: 8px; transition: 0.3s;
+        }
+        .back-btn:hover { color: #fff; }
+
+        .page-title { text-align: center; margin-bottom: 30px; }
+        .page-title h1 { font-size: 28px; color: #38bdf8; }
+
+        /* Apps Grid */
+        .apps-container {
+            max-width: 1100px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;
+        }
+
+        .app-card {
+            background: rgba(13, 18, 30, 0.8);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 16px; padding: 20px;
+            display: flex; flex-direction: column; justify-content: space-between;
+            transition: 0.3s ease;
+        }
+        .app-card:hover { transform: translateY(-5px); border-color: #38bdf8; }
+
+        .app-info { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .app-info img { width: 55px; height: 55px; border-radius: 12px; object-fit: cover; }
+        .app-info h3 { font-size: 18px; color: #fff; }
+        .app-info p { font-size: 12px; color: #94a3b8; }
+
+        .app-price-box {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .price { font-size: 20px; font-weight: 700; color: #38bdf8; }
+        
+        .buy-btn {
+            background: linear-gradient(135deg, #38bdf8, #4f46e5);
+            color: #fff; border: none; padding: 8px 16px; border-radius: 8px;
+            font-weight: 600; cursor: pointer; font-size: 13px; transition: 0.3s;
+        }
+        .buy-btn:hover { opacity: 0.9; transform: scale(1.03); }
+
+        /* 💳 POPUP PAYMENT MODAL STYLES */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(7, 10, 18, 0.85); backdrop-filter: blur(15px);
+            display: none; justify-content: center; align-items: center;
+            z-index: 2000; padding: 15px;
+        }
+        .modal-overlay.active { display: flex; }
+
+        .payment-card {
+            background: #0d121e; border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 20px; width: 100%; max-width: 420px;
+            padding: 22px; position: relative; box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            max-height: 90vh; overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute; top: 15px; right: 15px;
+            background: rgba(255,255,255,0.1); border: none; color: #fff;
+            width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 14px;
+        }
+
+        .modal-header { text-align: center; margin-bottom: 20px; }
+        .modal-header h3 { font-size: 20px; color: #38bdf8; margin-bottom: 5px; }
+        .selected-app-badge {
+            display: inline-block; background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600;
+        }
+
+        /* Payment Numbers Area */
+        .payment-methods { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+        .method-box {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .method-info { display: flex; align-items: center; gap: 10px; }
+        .method-info i { font-size: 20px; }
+        .bkash-color { color: #e2136e; }
+        .nagad-color { color: #f7921e; }
+        
+        .method-details p { font-size: 11px; color: #94a3b8; }
+        .method-details h5 { font-size: 15px; color: #fff; letter-spacing: 0.5px; }
+
+        .copy-btn {
+            background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3);
+            color: #38bdf8; padding: 6px 12px; border-radius: 6px; cursor: pointer;
+            font-size: 12px; font-weight: 600; transition: 0.2s;
+        }
+        .copy-btn:hover { background: #38bdf8; color: #000; }
+
+        /* Form Controls */
+        .form-group { margin-bottom: 14px; text-align: left; }
+        .form-group label { display: block; font-size: 12px; color: #cbd5e1; margin-bottom: 6px; }
+        .form-group input {
+            width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px; padding: 10px 12px; color: #fff; font-size: 13px; outline: none;
+        }
+        .form-group input:focus { border-color: #38bdf8; }
+
+        .submit-order-btn {
+            width: 100%; background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #fff; border: none; padding: 12px; border-radius: 10px;
+            font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 10px;
+        }
+
+        /* Toast Alert */
+        .toast {
+            position: fixed; bottom: 20px; right: 20px; background: #38bdf8; color: #000;
+            padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 13px;
+            display: none; z-index: 3000; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-bar">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        <h2>Sojib Store</h2>
+    </div>
+
+    <div class="page-title">
+        <h1>📱 All iOS Premium Editing Apps</h1>
+        <p style="color: #94a3b8; font-size: 14px; margin-top: 5px;">লাইফটাইম এক্সেস ও সরাসরি ভিডিও কল সেটআপ সাপোর্টসহ</p>
+    </div>
+
+    <!-- APPS GRID -->
+    <div class="apps-container" id="appsListContainer"></div>
+
+    <!-- 💳 PAYMENT POPUP MODAL -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="payment-card">
+            <button class="close-modal" onclick="closeModal()">✕</button>
+            
+            <div class="modal-header">
+                <h3>Complete Payment</h3>
+                <span class="selected-app-badge" id="modalAppName">App Name - Price</span>
+            </div>
+
+            <!-- Copyable Numbers -->
+            <div class="payment-methods">
+                <div class="method-box">
+                    <div class="method-info">
+                        <i class="fas fa-wallet bkash-color"></i>
+                        <div class="method-details">
+                            <p>bKash Personal (Send Money)</p>
+                            <h5 id="bkashNum">01836621269</h5>
+                        </div>
+                    </div>
+                    <button class="copy-btn" onclick="copyNumber('bkashNum')"><i class="fas fa-copy"></i> Copy</button>
+                </div>
+
+                <div class="method-box">
+                    <div class="method-info">
+                        <i class="fas fa-wallet nagad-color"></i>
+                        <div class="method-details">
+                            <p>Nagad Personal (Send Money)</p>
+                            <h5 id="nagadNum">01836621269</h5>
+                        </div>
+                    </div>
+                    <button class="copy-btn" onclick="copyNumber('nagadNum')"><i class="fas fa-copy"></i> Copy</button>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <form id="orderForm" onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                    <label for="trxId">Transaction ID (TrxID) *</label>
+                    <input type="text" id="trxId" placeholder="e.g. BXA892JK12" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="screenshot">Payment Screenshot *</label>
+                    <input type="file" id="screenshot" accept="image/*" required>
+                </div>
+
+                <button type="submit" class="submit-order-btn"><i class="fas fa-paper-plane"></i> Submit Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notice -->
+    <div class="toast" id="toastMsg">Number Copied!</div>
+
+    <script>
+        // ⚙️ Apps Data Array
+        const appsData = [
+            { id: 1, name: "CapCut Premium", desc: "Pro Video Editor", price: "৯৯৯৳", icon: "https://play-lh.googleusercontent.com/v5M3v5mK8W32qG9Y-2vY6W-Y7p7c5m2v2X5S3S" },
+            { id: 2, name: "Alight Motion Pro", desc: "Motion Graphics & Animation", price: "৭৯৯৳", icon: "https://play-lh.googleusercontent.com/4fXyYpWbT3wzS4eXGg2R44J039c2RjW-9vX4XnS2p4aJ3Gg" },
+            { id: 3, name: "Lightroom Premium", desc: "Color Grading & Presets", price: "৮৯৯৳", icon: "https://cdn.iconscout.com/icon/free/png-512/free-adobe-lightroom-logo-icon-download-in-svg-png-gif-file-formats--technology-social-media-company-brand-vol-1-pack-logos-icons-3029831.png" },
+            { id: 4, name: "Wink VIP", desc: "4K Video Quality Enhancer", price: "৮৯৯৳", icon: "https://img.icons8.com/color/96/video-editing.png" },
+            { id: 5, name: "PicsArt Gold", desc: "Photo & Graphic Design", price: "৪৯৯৳", icon: "https://cdn.iconscout.com/icon/free/png-512/free-picsart-logo-icon-download-in-svg-png-gif-file-formats--social-media-pack-user-interface-icons-4809287.png" },
+            { id: 6, name: "VN Video Editor Pro", desc: "Professional Multi-track Editor", price: "৫৯৯৳", icon: "https://play-lh.googleusercontent.com/4I12-v4o2t9J-Z0aW" },
+            { id: 7, name: "VSCO X Membership", desc: "Aesthetic Filters & Camera", price: "৬৯৯৳", icon: "https://img.icons8.com/color/96/vsco.png" },
+            { id: 8, name: "Remini Pro", desc: "AI Photo & Video Enhancer", price: "৭৯৯৳", icon: "https://img.icons8.com/color/96/artificial-intelligence.png" },
+            { id: 9, name: "KineMaster Premium", desc: "4K Timeline Video Editing", price: "৬৯৯৳", icon: "https://img.icons8.com/color/96/kinemaster.png" },
+            { id: 10, name: "InShot Pro", desc: "Reels & Shorts Video Maker", price: "৪৯৯৳", icon: "https://img.icons8.com/color/96/inshot.png" }
+        ];
+
+        // 🔄 Render Apps
+        function renderApps() {
+            const container = document.getElementById('appsListContainer');
+            container.innerHTML = "";
+
+            appsData.forEach(app => {
+                container.innerHTML += `
+                    <div class="app-card">
+                        <div class="app-info">
+                            <img src="${app.icon}" alt="${app.name}" onerror="this.src='https://via.placeholder.com/55/38bdf8/ffffff?text=App'">
+                            <div>
+                                <h3>${app.name}</h3>
+                                <p>${app.desc}</p>
+                            </div>
+                        </div>
+                        <div class="app-price-box">
+                            <span class="price">${app.price}</span>
+                            <button class="buy-btn" onclick="openPaymentModal('${app.name}', '${app.price}')">Order Now</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // 💳 Open Payment Modal
+        function openPaymentModal(appName, appPrice) {
+            document.getElementById('modalAppName').innerText = `${appName} - ${appPrice}`;
+            document.getElementById('paymentModal').classList.add('active');
+        }
+
+        // ✕ Close Modal
+        function closeModal() {
+            document.getElementById('paymentModal').classList.remove('active');
+        }
+
+        // 📋 One Click Copy Function
+        function copyNumber(elementId) {
+            const number = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(number).then(() => {
+                showToast("নম্বর কপি হয়েছে: " + number);
+            });
+        }
+
+        // 🔔 Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toastMsg');
+            toast.innerText = message;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 2500);
+        }
+
+        // 📩 Handle Form Submit
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            alert("আপনার অর্ডারটি গ্রহণ করা হয়েছে! আমরা দ্রুত আপনার পেমেন্ট ভেরিফাই করে অ্যাপ এক্সেস পাঠিয়ে দিবো।");
+            closeModal();
+            document.getElementById('orderForm').reset();
+        }
+
+        renderApps();
+    </script>
+</body>
+</html>
