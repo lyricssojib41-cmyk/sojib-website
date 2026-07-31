@@ -1,263 +1,843 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sojib Visual</title>
+    <title>Sojib Store - Premium iOS Apps</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 💎 ULTRA-PREMIUM FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base Reset & Typography */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Outfit", "Anek Bangla", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+        }
 
-    <link rel="stylesheet" href="style.css">
+        body {
+            background-color: #070a12;
+            color: #f8fafc;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 💧 ELEGANT SOFT LIQUID BACKGROUND BLOBS */
+        .liquid-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .liquid-blob {
+            position: absolute;
+            filter: blur(140px);
+            opacity: 0.28;
+            animation: liquidMorph 16s infinite alternate ease-in-out;
+        }
+
+        .blob-1 {
+            width: 450px; height: 450px;
+            background: radial-gradient(circle, #38bdf8, #0284c7);
+            top: -100px; left: -100px;
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        }
+
+        .blob-2 {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, #6366f1, #4338ca);
+            bottom: -50px; right: -100px;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            animation-delay: -6s;
+        }
+
+        @keyframes liquidMorph {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(30px, 40px) scale(1.05) rotate(180deg); }
+            100% { transform: translate(-20px, 20px) scale(0.95) rotate(360deg); }
+        }
+
+        /* ✨ ROTATING NEON BORDER */
+        .glow-box {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            padding: 1px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+        }
+
+        .glow-box::before {
+            content: '';
+            position: absolute;
+            width: 300%; height: 300%;
+            background: conic-gradient(
+                from 0deg, 
+                transparent 0%, 
+                transparent 70%, 
+                rgba(56, 189, 248, 0.15) 82%, 
+                #38bdf8 92%, 
+                #818cf8 97%, 
+                transparent 100%
+            );
+            animation: rotateBorder 5s linear infinite;
+        }
+
+        @keyframes rotateBorder {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .glow-content {
+            position: relative;
+            z-index: 1;
+            width: 100%; height: 100%;
+            background: rgba(13, 18, 30, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 19px;
+            transition: all 0.5s ease;
+        }
+
+        /* SOCIAL & STATUS STYLES */
+        .header-socials, .social-links-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .social-links-container {
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .social-btn-icon {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .social-btn-icon:hover { transform: translateY(-3px) scale(1.08); }
+
+        .online-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 5px 14px;
+            border-radius: 30px;
+        }
+
+        .pulse-dot {
+            width: 7px; height: 7px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #22c55e;
+            animation: blinkDot 1.5s infinite ease-in-out;
+        }
+
+        @keyframes blinkDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px) scale(0.97);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* GLASS HEADER NAVIGATION */
+        header {
+            position: fixed;
+            top: 15px; left: 50%;
+            transform: translateX(-50%);
+            width: 92%; max-width: 1100px;
+            border-radius: 50px;
+            background: rgba(13, 18, 30, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 22px;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 19px;
+            font-weight: 700;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .nav-logo {
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid #38bdf8;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 22px;
+        }
+
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover { color: #38bdf8; }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 110px 20px 40px;
+        }
+
+        /* 🖼️ U-SHAPED COVER PHOTO STYLING */
+        .u-cover-wrapper {
+            width: 100%;
+            max-width: 780px;
+            height: 180px;
+            margin: 0 auto -55px;
+            position: relative;
+            border-radius: 0 0 50% 50% / 0 0 60px 60px;
+            overflow: hidden;
+            border: 2px solid rgba(56, 189, 248, 0.3);
+            border-top: none;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.15);
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+        }
+
+        .u-cover-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.9);
+        }
+
+        /* 👑 OWNER PROFILE STYLING */
+        .owner-profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .owner-avatar-box {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, #38bdf8, #6366f1);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .owner-avatar-box img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #070a12;
+        }
+
+        /* 🟦 FACEBOOK STYLE VERIFIED BADGE */
+        .owner-verified-badge {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            background: #0084ff;
+            color: #ffffff;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            border: 3px solid #070a12;
+            box-shadow: 0 2px 8px rgba(0, 132, 255, 0.4);
+            z-index: 5;
+        }
+
+        .owner-verified-badge i {
+            filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.8));
+        }
+
+        .owner-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .owner-title-tag {
+            font-size: 12px;
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .about-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .about-btn:hover {
+            background: rgba(56, 189, 248, 0.15);
+            border-color: #38bdf8;
+            color: #38bdf8;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            color: #38bdf8;
+            padding: 7px 22px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: #94a3b8;
+            max-width: 580px;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        /* OFFER PILL */
+        .offer-box {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            color: #fbbf24;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 28px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* BUTTON TO APPS PAGE */
+        .btn-primary {
+            background: linear-gradient(135deg, #38bdf8, #4f46e5);
+            color: #ffffff;
+            padding: 16px 42px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+            transition: 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(56, 189, 248, 0.5);
+        }
+
+        /* SECTIONS STRUCTURE */
+        section {
+            padding: 60px 8%;
+            max-width: 1250px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 35px;
+            color: #ffffff;
+        }
+
+        /* SERVICES GRID */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 22px;
+        }
+
+        .service-item { padding: 26px; }
+
+        .service-item i {
+            font-size: 28px;
+            color: #38bdf8;
+            margin-bottom: 14px;
+            background: rgba(56, 189, 248, 0.08);
+            padding: 12px;
+            border-radius: 14px;
+            display: inline-block;
+        }
+
+        .service-item h4 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+        .service-item p { font-size: 13px; color: #94a3b8; line-height: 1.5; }
+
+        /* MODAL STYLES */
+        .payment-modal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(7, 10, 18, 0.88);
+            backdrop-filter: blur(20px);
+            z-index: 2000;
+            display: none;
+            padding: 20px 15px;
+            overflow-y: auto;
+        }
+
+        .payment-modal.active { display: flex; opacity: 1; }
+
+        .modal-card {
+            width: 100%;
+            max-width: 460px;
+            margin: auto;
+            position: relative;
+        }
+
+        .modal-inner {
+            padding: 24px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 16px; right: 16px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .about-header-box { text-align: center; margin-top: 10px; margin-bottom: 20px; }
+
+        .about-avatar-wrapper {
+            width: 85px; height: 85px;
+            margin: 0 auto 10px;
+            border-radius: 50%; padding: 2px;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        }
+
+        .about-avatar-wrapper img {
+            width: 100%; height: 100%;
+            border-radius: 50%; object-fit: cover;
+            border: 2px solid #070a12;
+        }
+
+        .about-header-box h3 { font-size: 22px; color: #ffffff; font-weight: 800; }
+        .about-subtitle { font-size: 13px; color: #38bdf8; font-weight: 600; }
+
+        .about-stats-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: rgba(56, 189, 248, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 12px; padding: 12px 10px; text-align: center;
+        }
+
+        .stat-box i { font-size: 20px; color: #38bdf8; margin-bottom: 5px; }
+        .stat-box h4 { font-size: 15px; color: #ffffff; font-weight: 800; }
+        .stat-box p { font-size: 11px; color: #94a3b8; }
+
+        .about-bio-text {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px; padding: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.06); margin-bottom: 18px;
+        }
+
+        .about-bio-text p { font-size: 13px; color: #cbd5e1; line-height: 1.6; margin-bottom: 10px; }
+        .about-bio-text p:last-child { margin-bottom: 0; }
+        .about-bio-text strong { color: #38bdf8; }
+
+        .about-highlights-list { list-style: none; margin-bottom: 20px; }
+        .about-highlights-list li {
+            font-size: 13px; color: #e2e8f0; margin-bottom: 8px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .about-highlights-list i { color: #22c55e; font-size: 14px; }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #38bdf8, #4f46e5);
+            color: #ffffff; border: none; padding: 12px;
+            border-radius: 10px; font-size: 14px; font-weight: 700;
+            cursor: pointer; margin-top: 14px;
+            display: flex; justify-content: center; align-items: center; gap: 8px;
+        }
+
+        footer {
+            text-align: center; padding: 30px; font-size: 13px;
+            color: #64748b; border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        @media (max-width: 600px) {
+            .nav-links, .header-socials { display: none; }
+            header { justify-content: space-between; padding: 8px 16px; }
+            section { padding: 40px 5%; }
+            .hero { padding-top: 100px; }
+            .u-cover-wrapper { height: 130px; margin-bottom: -45px; border-radius: 0 0 50% 50% / 0 0 35px 35px; }
+            .owner-avatar-box { width: 90px; height: 90px; }
+            .hero h1 { font-size: 28px; }
+            .hero p { font-size: 14px; }
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- Background -->
-<div class="bg-blur blur1"></div>
-<div class="bg-blur blur2"></div>
-<div class="bg-blur blur3"></div>
-
-<!-- Navbar -->
-<nav class="navbar">
-
-    <div class="logo">
-        <!-- পরে logo.png যোগ করলে নিচের img ট্যাগের কমেন্ট খুলে দিন -->
-        <!-- <img src="images/logo.png" alt="Logo"> -->
-        <span>✨ Sojib Visual</span>
+    <!-- Liquid Background -->
+    <div class="liquid-container">
+        <div class="liquid-blob blob-1"></div>
+        <div class="liquid-blob blob-2"></div>
     </div>
 
-    <ul class="menu">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#reviews">Reviews</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
-
-</nav>
-
-<!-- Hero -->
-
-<header class="hero" id="home">
-
-<div class="glass">
-
-<h1>Sojib Visual</h1>
-
-<p>
-Professional Video Editing,
-Premium iPhone Apps &
-Graphic Design
-</p>
-
-<div class="buttons">
-
-<a href="#services">
-<button>View Services</button>
-</a>
-
-<a href="https://wa.me/8801792924248">
-<button>Order Now</button>
-</a>
-
-</div>
-
-</div>
-
-</header>
-
-<!-- Services -->
-
-<section id="services" class="services">
-
-<h2>Our Services</h2>
-
-<div class="cards">
-
-<div class="card">
-<h3>🎬 Video Editing</h3>
-<p>Professional YouTube, Facebook & TikTok Video Editing.</p>
-</div>
-
-<div class="card">
-<h3>📱 Premium Apps</h3>
-<p>Alight Motion, CapCut, Lightroom, PicsArt Premium.</p>
-</div>
-
-<div class="card">
-<h3>🎨 Graphic Design</h3>
-<p>Logo, Banner, Thumbnail & Social Media Design.</p>
-</div>
-
-</div>
-
-</section>
-
-<!-- Pricing -->
-
-<section id="pricing" class="pricing">
-
-<h2>Pricing</h2>
-
-<div class="cards">
-
-<div class="card">
-
-<h3>Alight Motion</h3>
-
-<h1>799৳</h1>
-
-<p>Lifetime Premium</p>
-
-<button>Order Now</button>
-
-</div>
-
-<div class="card">
-
-<h3>CapCut Premium</h3>
-
-<h1>999৳</h1>
-
-<p>Lifetime Premium</p>
-
-<button>Order Now</button>
-
-</div>
-
-<div class="card">
-
-<h3>Lightroom Premium</h3>
-
-<h1>899৳</h1>
-
-<p>Lifetime Premium</p>
-
-<button>Order Now</button>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- Reviews -->
-
-<section id="reviews" class="reviews">
-
-<h2>Customer Reviews</h2>
-
-<div class="cards">
-
-<div class="card">
-
-<h3>⭐⭐⭐⭐⭐</h3>
-
-<p>
-Fast delivery and excellent support.
-</p>
-
-<strong>Rahim</strong>
-
-</div>
-
-<div class="card">
-
-<h3>⭐⭐⭐⭐⭐</h3>
-
-<p>
-Best Premium Apps Service.
-</p>
-
-<strong>Karim</strong>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- FAQ -->
-
-<section id="faq" class="faq">
-
-<h2>Frequently Asked Questions</h2>
-
-<div class="faq-item">
-
-<h3>Premium Apps Lifetime?</h3>
-
-<p>
-Yes. Lifetime Access Included.
-</p>
-
-</div>
-
-<div class="faq-item">
-
-<h3>Payment Method?</h3>
-
-<p>
-bKash & Nagad.
-</p>
-
-</div>
-
-<div class="faq-item">
-
-<h3>Support?</h3>
-
-<p>
-24/7 WhatsApp Support.
-</p>
-
-</div>
-
-</section>
-
-<!-- Contact -->
-
-<section class="contact" id="contact">
-
-<h2>Contact</h2>
-
-<div class="card">
-
-<p>📱 WhatsApp: 01792924248</p>
-
-<p>📧 Email: your@email.com</p>
-
-<a href="https://wa.me/8801792924248">
-
-<button>Chat on WhatsApp</button>
-
-</a>
-
-</div>
-
-</section>
-
-<!-- Footer -->
-
-<footer>
-
-<p>
-
-© 2026 Sojib Visual
-
-</p>
-
-</footer>
-
-<!-- WhatsApp Floating Button -->
-
-<a href="https://wa.me/8801792924248"
-class="whatsapp-btn">
-
-💬
-
-</a>
-
-<script src="script.js"></script>
+    <!-- Glass Navigation Header -->
+    <header>
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="Logo" class="nav-logo" onerror="this.src='https://via.placeholder.com/34/38bdf8/ffffff?text=🍎'">
+            <span>Sojib Store</span>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="apps.html">All Apps</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="javascript:void(0)" onclick="openAboutModal()">About Me</a></li>
+        </ul>
+
+        <!-- Header Social Links -->
+        <div class="header-socials">
+            <a href="https://youtube.com/@primeauraeditx?si=5nKfJZODYhq1BtA3" target="_blank" title="YouTube" class="social-btn-icon yt"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://www.facebook.com/share/1JPk5Gj1zC/" target="_blank" title="Facebook" class="social-btn-icon fb"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://www.tiktok.com/@editzsojib7?_r=1&_t=ZS-98TLyyVKwOD" target="_blank" title="TikTok" class="social-btn-icon tk"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://t.me/lyrics_sojib" target="_blank" title="Telegram" class="social-btn-icon tg"><i class="fa-brands fa-telegram"></i></a>
+        </div>
+
+        <div class="online-status">
+            <span class="pulse-dot"></span> Online
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+
+        <!-- 🖼️ U-Shaped Cover Photo Banner -->
+        <div class="u-cover-wrapper reveal">
+            <img src="cover.jpg" alt="Sojib Store Cover" onerror="this.src='https://via.placeholder.com/800x200/0f172a/38bdf8?text=Sojib+Store+Official+Cover'">
+        </div>
+
+        <!-- 👑 Owner Profile Display -->
+        <div class="owner-profile-container reveal">
+            <div class="owner-avatar-box">
+                <img src="owner.jpg" alt="Md Sojib Hossain" onerror="this.src='https://via.placeholder.com/110/38bdf8/ffffff?text=👨‍💻'">
+                <div class="owner-verified-badge" title="Verified Owner">
+                    <i class="fas fa-badge-check"></i>
+                </div>
+            </div>
+            <h2 class="owner-name">Md Sojib Hossain</h2>
+            <span class="owner-title-tag">Founder & Owner - Sojib Store</span>
+            <button class="about-btn" onclick="openAboutModal()"><i class="fas fa-user-circle"></i> About Me</button>
+        </div>
+
+        <div class="hero-badge reveal">
+            <i class="fab fa-apple"></i> iPhone Premium Apps (Lifetime Access)
+        </div>
+
+        <h1 class="reveal">Upgrade Your iPhone with <br><span>Premium Editing Apps</span></h1>
+        
+        <p class="reveal">Get lifetime access with full video call setup & future fixing support included.</p>
+
+        <div class="offer-box reveal">
+            <span>🔥</span>
+            <span>২টি অ্যাপ একসাথে নিলে <strong>৩০০৳ ছাড়!</strong></span>
+        </div>
+
+        <!-- 🟢 LINK TO APPS PAGE -->
+        <a href="apps.html" class="btn-primary reveal">Explore All Apps <i class="fas fa-arrow-right"></i></a>
+    </section>
+
+    <!-- Service Features Section -->
+    <section id="services">
+        <h2 class="section-title reveal">✅ Service Features & Guarantee</h2>
+        <div class="services-grid">
+            <div class="glow-box reveal">
+                <div class="glow-content service-item">
+                    <i class="fas fa-infinity"></i>
+                    <h4>Lifetime Access</h4>
+                    <p>One-time setup with hassle-free lifetime usage.</p>
+                </div>
+            </div>
+            <div class="glow-box reveal">
+                <div class="glow-content service-item">
+                    <i class="fas fa-headset"></i>
+                    <h4>Video Call Setup</h4>
+                    <p>ভিডিও কলে সম্পূর্ণ লাইভ সেটআপ করিয়ে দেওয়া হয়।</p>
+                </div>
+            </div>
+            <div class="glow-box reveal">
+                <div class="glow-content service-item">
+                    <i class="fas fa-shield-halved"></i>
+                    <h4>Free Repair Support</h4>
+                    <p>Free technical assistance & re-setup if any issue occurs.</p>
+                </div>
+            </div>
+            <div class="glow-box reveal">
+                <div class="glow-content service-item">
+                    <i class="fas fa-mobile-screen-button"></i>
+                    <h4>Phone Switching Benefit</h4>
+                    <p>নতুন iPhone নিলে মাত্র ৯৯৳ সার্ভিস চার্জে পুনরায় সেটআপ সুবিধা।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🎬 TikTok HD Quality Upload Guide Section -->
+    <section style="padding: 20px 8%; max-width: 1250px; margin: 0 auto;">
+        <div class="glow-box reveal">
+            <div class="glow-content" style="padding: 30px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 15px;">
+                <div style="font-size: 36px; color: #38bdf8; background: rgba(56, 189, 248, 0.08); padding: 15px; border-radius: 50%;">
+                    <i class="fab fa-tiktok"></i>
+                </div>
+                <h3 style="font-size: 22px; color: #fff; font-weight: 700;">টিকটকে ১০০% হাই-কোয়ালিটি ভিডিও আপলোড গাইড</h3>
+                <p style="color: #94a3b8; font-size: 14px; max-width: 650px; line-height: 1.6;">
+                    আমাদের প্রিমিয়াম এডিটিং অ্যাপস (CapCut, Alight Motion, Wink) দিয়ে এডিট করা ভিডিওগুলো টিকটকে আপলোড করার সময় যেন কোয়ালিটি ফেটে না যায় বা ঘোলা না হয়, তার জন্য থাকছে সঠিক সেটিংস ও অ্যাপস গাইডলাইন।
+                </p>
+                <button onclick="openTiktokModal()" style="background: linear-gradient(135deg, #38bdf8, #4f46e5); color: #fff; border: none; padding: 10px 25px; border-radius: 30px; font-weight: 600; cursor: pointer; font-size: 14px; margin-top: 10px;">
+                    <i class="fas fa-info-circle"></i> এইচডি আপলোড নিয়ম দেখুন
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 👨‍💻 ABOUT ME POPUP MODAL -->
+    <div class="payment-modal" id="aboutModal">
+        <div class="modal-card">
+            <div class="glow-box">
+                <div class="glow-content modal-inner">
+                    <button class="close-btn" onclick="closeAboutModal()">✕</button>
+
+                    <div class="about-header-box">
+                        <div class="about-avatar-wrapper">
+                            <img src="owner.jpg" alt="Md Sojib Hossain" onerror="this.src='https://via.placeholder.com/90/38bdf8/ffffff?text=👨‍💻'">
+                        </div>
+                        <h3>Md Sojib Hossain</h3>
+                        <p class="about-subtitle">Founder & CEO - Sojib Store</p>
+                    </div>
+
+                    <div class="about-stats-grid">
+                        <div class="stat-box">
+                            <i class="fas fa-video"></i>
+                            <h4>২০১৬ থেকে</h4>
+                            <p>ভিডিও এডিটিং অভিজ্ঞতা</p>
+                        </div>
+                        <div class="stat-box">
+                            <i class="fab fa-apple"></i>
+                            <h4>২০২১ থেকে</h4>
+                            <p>iOS প্রিমিয়াম সার্ভিস</p>
+                        </div>
+                    </div>
+
+                    <div class="about-bio-text">
+                        <p>👋 <strong>হ্যালো! আমি মোঃ সজিব হোসেন।</strong></p>
+                        <p><strong>২০১৬ সাল</strong> থেকে আমি প্রফেশনাল ভিডিও এডিটিংয়ের সাথে যুক্ত আছি। দীর্ঘদিনের প্র্যাকটিক্যাল অভিজ্ঞতা থেকে আমি খুব ভালো করেই বুঝি এডিটরদের কাজের সুবিধার জন্য কোন অ্যাপস ও ফিচারগুলো কতটা প্রয়োজন।</p>
+                        <p>সেই অভিজ্ঞতা থেকেই <strong>২০২১ সাল</strong> থেকে শুরু করি আইফোনের (iOS) প্রিমিয়াম এডিটিং অ্যাপস সার্ভিস। আমার মূল উদ্দেশ্য কেবল অ্যাপস দেওয়া নয়, বরং ভিডিও কলের মাধ্যমে লাইভ সেটআপ এবং ১০০% ফ্রেন্ডলি সাপোর্ট প্রোভাইড করা।</p>
+                    </div>
+
+                    <ul class="about-highlights-list">
+                        <li><i class="fas fa-check-circle"></i> ভিডিও কলের মাধ্যমে সরাসরি লাইভ সেটআপ</li>
+                        <li><i class="fas fa-check-circle"></i> লাইফটাইম ইউজেস ও ফ্রি রি-সেটআপ সাপোর্ট</li>
+                        <li><i class="fas fa-check-circle"></i> ১০০% বিশ্বস্ত ও ক্র্যাশ-ফ্রি প্রিমিয়াম সার্ভিস</li>
+                    </ul>
+
+                    <button class="submit-btn" onclick="closeAboutModal()"><i class="fas fa-thumbs-up"></i> বুঝেছি, ধন্যবাদ!</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🚀 TikTok HD Tips Modal -->
+    <div class="payment-modal" id="tiktokModal">
+        <div class="modal-card">
+            <div class="glow-box">
+                <div class="glow-content modal-inner" style="text-align: left;">
+                    <button class="close-btn" onclick="closeTiktokModal()">✕</button>
+
+                    <div class="about-header-box" style="text-align: center; margin-bottom: 15px;">
+                        <div style="font-size: 30px; color: #38bdf8; margin-bottom: 5px;"><i class="fab fa-tiktok"></i></div>
+                        <h3 style="font-size: 20px; color: #fff;">টিকটকে HD ভিডিও আপলোডের সিক্রেট সেটিংস</h3>
+                    </div>
+
+                    <div class="about-bio-text">
+                        <p>🔥 <strong>১. CapCut বা এডিটর এক্সপোর্ট সেটিংস:</strong></p>
+                        <p>ভিডিও এক্সপোর্ট করার সময় রেজুলেশন હંમેશા <strong>1080p (বা সম্ভব হলে 4K)</strong> সিলেক্ট করুন। ফ্রেম রেট (Frame Rate) কমপক্ষে <strong>60fps</strong> এবং কোডেক High রাখুন।</p>
+                        
+                        <p style="margin-top: 12px;">📱 <strong>২. TikTok অ্যাপ সেটিংস (Data Saver বন্ধ রাখুন):</strong></p>
+                        <p>টিকটক অ্যাপের <strong>Settings and Privacy > Data Saver</strong> অপশনটি অবশ্যই বন্ধ (Off) রাখুন।</p>
+
+                        <p style="margin-top: 12px;">⚡ <strong>৩. High-Quality Upload অপশন অন করুন:</strong></p>
+                        <p>টিকটকে ভিডিও পোস্ট করার শেষ স্ক্রিনে (যেখানে ক্যাপশন লেখেন) নিচের দিকে <strong>"More Options"</strong> এ ক্লিক করে <strong>"Allow high-quality uploads"</strong> অপশনটি অন করে দিন।</p>
+                    </div>
+
+                    <button class="submit-btn" onclick="closeTiktokModal()"><i class="fas fa-check"></i> বুঝতে পেরেছি</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links-container">
+            <a href="https://youtube.com/@primeauraeditx?si=5nKfJZODYhq1BtA3" target="_blank" title="YouTube" class="social-btn-icon yt"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://www.facebook.com/share/1JPk5Gj1zC/" target="_blank" title="Facebook" class="social-btn-icon fb"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://www.tiktok.com/@editzsojib7?_r=1&_t=ZS-98TLyyVKwOD" target="_blank" title="TikTok" class="social-btn-icon tk"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://t.me/lyrics_sojib" target="_blank" title="Telegram" class="social-btn-icon tg"><i class="fa-brands fa-telegram"></i></a>
+        </div>
+        <p>&copy; 2026 Sojib Store. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Scroll Reveal
+        function revealOnScroll() {
+            var reveals = document.querySelectorAll('.reveal');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 50) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // About Me Modal Controls
+        function openAboutModal() {
+            document.getElementById('aboutModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAboutModal() {
+            document.getElementById('aboutModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // TikTok Modal Controls
+        function openTiktokModal() {
+            document.getElementById('tiktokModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTiktokModal() {
+            document.getElementById('tiktokModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            var abtModal = document.getElementById('aboutModal');
+            var tkModal = document.getElementById('tiktokModal');
+            if (event.target == abtModal) {
+                closeAboutModal();
+            }
+            if (event.target == tkModal) {
+                closeTiktokModal();
+            }
+        }
+    </script>
 
 </body>
 </html>
