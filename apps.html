@@ -30,7 +30,7 @@
         /* Apps Grid */
         .apps-container {
             max-width: 1100px; margin: 0 auto;
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
         }
 
         .app-card {
@@ -43,15 +43,16 @@
         .app-card:hover { transform: translateY(-5px); border-color: #38bdf8; }
 
         .app-info { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
-        .app-info img { width: 55px; height: 55px; border-radius: 14px; object-fit: cover; background: #1e293b; padding: 4px; border: 1px solid rgba(255,255,255,0.1); }
-        .app-info h3 { font-size: 18px; color: #fff; }
-        .app-info p { font-size: 12px; color: #94a3b8; }
+        .app-info img { width: 55px; height: 55px; border-radius: 14px; object-fit: cover; background: #1e293b; padding: 4px; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0; }
+        .app-info div { overflow: hidden; }
+        .app-info h3 { font-size: 17px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .app-info p { font-size: 12px; color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .app-price-box {
             display: flex; justify-content: space-between; align-items: center;
-            margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 10px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.06);
         }
-        .price { font-size: 20px; font-weight: 700; color: #38bdf8; }
+        .price { font-size: 19px; font-weight: 700; color: #38bdf8; }
         
         .buy-btn {
             background: linear-gradient(135deg, #38bdf8, #4f46e5);
@@ -259,15 +260,16 @@
     <div class="toast" id="toastMsg">Number Copied!</div>
 
     <script>
+        // আপনার ফাইল ম্যানেজার অনুযায়ী সঠিক ইমেজ ফাইলের নাম এখানে বসানো হয়েছে
         const appsData = [
             { id: 1, name: "CapCut Premium", desc: "Pro Video Editor", price: "৯৯৯৳", icon: "capcut.png" },
-            { id: 2, name: "Alight Motion Pro", desc: "Motion Graphics & Animation", price: "৭৯৯৳", icon: "alight.png" },
+            { id: 2, name: "Alight Motion Pro", desc: "Motion Graphics & Animation", price: "৭৯৯৳", icon: "alightmotion.png" },
             { id: 3, name: "Lightroom Premium", desc: "Color Grading & Presets", price: "৮৯৯৳", icon: "lightroom.png" },
-            { id: 4, name: "Wink VIP", desc: "4K Video Quality Enhancer", price: "৮৯৯৳", icon: "capcut.png" },
-            { id: 5, name: "PicsArt Gold", desc: "Photo & Graphic Design", price: "৪৯৯৳", icon: "capcut.png" },
-            { id: 6, name: "VN Video Editor Pro", desc: "Professional Multi-track Editor", price: "৫৯৯৳", icon: "capcut.png" },
-            { id: 7, name: "VSCO X Membership", desc: "Aesthetic Filters & Camera", price: "৬৯৯৳", icon: "capcut.png" },
-            { id: 8, name: "Remini Pro", desc: "AI Photo & Video Enhancer", price: "৭৯৯৳", icon: "capcut.png" },
+            { id: 4, name: "Wink VIP", desc: "4K Video Quality Enhancer", price: "৮৯৯৳", icon: "wink.png" },
+            { id: 5, name: "PicsArt Gold", desc: "Photo & Graphic Design", price: "৪৯৯৳", icon: "picsart.png" },
+            { id: 6, name: "VN Video Editor Pro", desc: "Professional Multi-track Editor", price: "৫৯৯৳", icon: "vn.png" },
+            { id: 7, name: "VSCO X Membership", desc: "Aesthetic Filters & Camera", price: "৬৯৯৳", icon: "vsco.png" },
+            { id: 8, name: "Remini Pro", desc: "AI Photo & Video Enhancer", price: "৭৯৯৳", icon: "remini.png" },
             { id: 9, name: "KineMaster Premium", desc: "4K Timeline Video Editing", price: "৬৯৯৳", icon: "kinemaster.png" },
             { id: 10, name: "InShot Pro", desc: "Reels & Shorts Video Maker", price: "৪৯৯৳", icon: "inshot.png" }
         ];
