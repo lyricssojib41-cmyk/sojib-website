@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Sojib Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { background-color: #070a12; color: #fff; padding: 30px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;
+        }
+        h1 { color: #38bdf8; font-size: 24px; }
+        
+        .clear-btn { 
+            background: #ef4444; color: #fff; border: none; padding: 8px 16px; 
+            border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px;
+            transition: 0.2s;
+        }
+        .clear-btn:hover { opacity: 0.8; }
+
+        .table-responsive { width: 100%; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; background: #0d121e; border-radius: 12px; overflow: hidden; border: 1px solid rgba(56,189,248,0.2); }
+        th, td { padding: 14px 18px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; }
+        th { background: rgba(56,189,248,0.1); color: #38bdf8; font-weight: 600; }
+        td { color: #cbd5e1; }
+        .trx-text { color: #38bdf8; font-weight: bold; letter-spacing: 0.5px; }
+        .wa-number { color: #22c55e; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+        .no-data { text-align: center; color: #94a3b8; padding: 30px !important; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>🛠️ Admin Panel - Orders List</h1>
+            <button class="clear-btn" onclick="clearOrders()"><i class="fas fa-trash-alt"></i> Clear All Orders</button>
+        </div>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order Time</th>
+                        <th>App Name & Price</th>
+                        <th>WhatsApp Number</th>
+                        <th>TrxID</th>
+                    </tr>
+                </thead>
+                <tbody id="orderTableBody">
+                    <!-- অর্ডারগুলো এখানে লোড হবে -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function loadOrders() {
+            const tableBody = document.getElementById('orderTableBody');
+            let orders = JSON.parse(localStorage.getItem('storeOrders')) || [];
+            
+            tableBody.innerHTML = "";
+
+            if (orders.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="4" class="no-data">কোনো নতুন অর্ডার নেই!</td></tr>`;
+                return;
+            }
+
+            orders.reverse().forEach(order => {
+                tableBody.innerHTML += `
+                    <tr>
+                        <td>${order.time}</td>
+                        <td>${order.appName}</td>
+                        <td><span class="wa-number"><i class="fab fa-whatsapp"></i> ${order.whatsapp}</span></td>
+                        <td class="trx-text">${order.trxId}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        function clearOrders() {
+            if(confirm("সব অর্ডার মুছে ফেলতে চান?")) {
+                localStorage.removeItem('storeOrders');
+                loadOrders();
+            }
+        }
+
+        loadOrders();
+    </script>
+</body>
+</html>
