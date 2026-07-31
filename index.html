@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sojib Store - Premium iOS Apps</title>
+    <title>Sojib Store - Premium iOS Apps & Video Editing Services</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -218,7 +218,7 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 22px;
+            gap: 20px;
         }
 
         .nav-links a {
@@ -459,6 +459,58 @@
         .service-item h4 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
         .service-item p { font-size: 13px; color: #94a3b8; line-height: 1.5; }
 
+        /* 🎬 VIDEO EDITING PRICING CARDS */
+        .editing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .editing-card {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: rgba(13, 18, 30, 0.95);
+        }
+
+        .editing-card .price-tag {
+            font-size: 28px;
+            font-weight: 800;
+            color: #38bdf8;
+            margin: 15px 0 10px;
+        }
+
+        .editing-card p {
+            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .order-service-btn {
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.4);
+            color: #22c55e;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .order-service-btn:hover {
+            background: #22c55e;
+            color: #fff;
+        }
+
         /* MODAL STYLES */
         .payment-modal {
             position: fixed;
@@ -476,7 +528,7 @@
 
         .modal-card {
             width: 100%;
-            max-width: 460px;
+            max-width: 480px;
             margin: auto;
             position: relative;
         }
@@ -594,6 +646,7 @@
 
         <ul class="nav-links">
             <li><a href="apps.html">All Apps</a></li>
+            <li><a href="#editing-services">Video Editing</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="javascript:void(0)" onclick="openAboutModal()">About Me</a></li>
         </ul>
@@ -603,7 +656,7 @@
             <a href="https://youtube.com/@primeauraeditx?si=5nKfJZODYhq1BtA3" target="_blank" title="YouTube" class="social-btn-icon yt"><i class="fa-brands fa-youtube"></i></a>
             <a href="https://www.facebook.com/share/1JPk5Gj1zC/" target="_blank" title="Facebook" class="social-btn-icon fb"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="https://www.tiktok.com/@editzsojib7?_r=1&_t=ZS-98TLyyVKwOD" target="_blank" title="TikTok" class="social-btn-icon tk"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="https://t.me/lyrics_sojib" target="_blank" title="Telegram" class="social-btn-icon tg"><i class="fa-brands fa-telegram"></i></a>
+            <a href="https://wa.me/8801300188953" target="_blank" title="WhatsApp" class="social-btn-icon wa"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
 
         <div class="online-status">
@@ -633,20 +686,54 @@
         </div>
 
         <div class="hero-badge reveal">
-            <i class="fab fa-apple"></i> iPhone Premium Apps (Lifetime Access)
+            <i class="fab fa-apple"></i> iPhone Premium Apps & Professional Video Editing
         </div>
 
-        <h1 class="reveal">Upgrade Your iPhone with <br><span>Premium Editing Apps</span></h1>
+        <h1 class="reveal">Upgrade Your Content with <br><span>Professional Editing Services</span></h1>
         
-        <p class="reveal">Get lifetime access with full video call setup & future fixing support included.</p>
+        <p class="reveal">Get lifetime access to iOS editing apps and expert cinematic video editing support.</p>
 
         <div class="offer-box reveal">
             <span>🔥</span>
-            <span>২টি অ্যাপ একসাথে নিলে <strong>৩০০৳ ছাড়!</strong></span>
+            <span>আইওএস অ্যাপসে ২টি একসাথে নিলে <strong>৩০০৳ ছাড়!</strong></span>
         </div>
 
         <!-- 🟢 LINK TO APPS PAGE -->
-        <a href="apps.html" class="btn-primary reveal">Explore All Apps <i class="fas fa-arrow-right"></i></a>
+        <a href="apps.html" class="btn-primary reveal">Explore All iOS Apps <i class="fas fa-arrow-right"></i></a>
+    </section>
+
+    <!-- 🎬 Video Paid Editing Services Section -->
+    <section id="editing-services">
+        <h2 class="section-title reveal">✨ Professional Video Editing Services</h2>
+        <div class="editing-grid">
+            
+            <!-- Cinematic Video Edit -->
+            <div class="glow-box reveal">
+                <div class="glow-content editing-card">
+                    <div>
+                        <i class="fas fa-film" style="font-size: 28px; color: #38bdf8; margin-bottom: 15px; background: rgba(56, 189, 248, 0.08); padding: 12px; border-radius: 14px; display: inline-block;"></i>
+                        <h4 style="font-size: 20px; font-weight: 700; color: #fff;">Cinematic Video Edit</h4>
+                        <div class="price-tag">৳১৯৯</div>
+                        <p>আপনার সাধারণ ফুটেজকে কালার গ্রেডিং ও রিদম মেনে আকর্ষণীয় সিনেমাটিক ভিডিও হিসেবে এডিট করে দেওয়া হবে।</p>
+                    </div>
+                    <a href="https://wa.me/8801300188953?text=I%20want%20to%20order%20Cinematic%20Video%20Edit%20(199%20BDT)" target="_blank" class="order-service-btn"><i class="fab fa-whatsapp" style="font-size: 18px;"></i> WhatsApp এ অর্ডার করুন</a>
+                </div>
+            </div>
+
+            <!-- Professional Advertisement (15s) -->
+            <div class="glow-box reveal">
+                <div class="glow-content editing-card">
+                    <div>
+                        <i class="fas fa-bullhorn" style="font-size: 28px; color: #38bdf8; margin-bottom: 15px; background: rgba(56, 189, 248, 0.08); padding: 12px; border-radius: 14px; display: inline-block;"></i>
+                        <h4 style="font-size: 20px; font-weight: 700; color: #fff;">15 Sec Professional Ad</h4>
+                        <div class="price-tag">৳৪৯৯</div>
+                        <p>ব্র্যান্ড, প্রোডাক্ট বা সোশ্যাল মিডিয়া প্রমোশনের জন্য নজরকাড়া ১৫ সেকেন্ডের প্রিমিয়াম বিজ্ঞাপন ভিডিও।</p>
+                    </div>
+                    <a href="https://wa.me/8801300188953?text=I%20want%20to%20order%2015%20Sec%20Professional%20Ad%20(499%20BDT)" target="_blank" class="order-service-btn"><i class="fab fa-whatsapp" style="font-size: 18px;"></i> WhatsApp এ অর্ডার করুন</a>
+                </div>
+            </div>
+
+        </div>
     </section>
 
     <!-- Service Features Section -->
@@ -693,7 +780,7 @@
                 </div>
                 <h3 style="font-size: 22px; color: #fff; font-weight: 700;">টিকটকে ১০০% হাই-কোয়ালিটি ভিডিও আপলোড গাইড</h3>
                 <p style="color: #94a3b8; font-size: 14px; max-width: 650px; line-height: 1.6;">
-                    আমাদের প্রিমিয়াম এডিটিং অ্যাপস (CapCut, Alight Motion, Wink) দিয়ে এডিট করা ভিডিওগুলো টিকটকে আপলোড করার সময় যেন কোয়ালিটি ফেটে না যায় বা ঘোলা না হয়, তার জন্য থাকছে সঠিক সেটিংস ও অ্যাপস গাইডলাইন।
+                    আমাদের প্রিমিয়াম এডিটিং অ্যাপস (CapCut, Alight Motion, Wink) দিয়ে এডিট করা ভিডিওগুলো টিকটকে আপলোড করার সঠিক পদ্ধতি ও ট্রিকস দেখে নিন।
                 </p>
                 <button onclick="openTiktokModal()" style="background: linear-gradient(135deg, #38bdf8, #4f46e5); color: #fff; border: none; padding: 10px 25px; border-radius: 30px; font-weight: 600; cursor: pointer; font-size: 14px; margin-top: 10px;">
                     <i class="fas fa-info-circle"></i> এইচডি আপলোড নিয়ম দেখুন
@@ -758,18 +845,21 @@
 
                     <div class="about-header-box" style="text-align: center; margin-bottom: 15px;">
                         <div style="font-size: 30px; color: #38bdf8; margin-bottom: 5px;"><i class="fab fa-tiktok"></i></div>
-                        <h3 style="font-size: 20px; color: #fff;">টিকটকে HD ভিডিও আপলোডের সিক্রেট সেটিংস</h3>
+                        <h3 style="font-size: 20px; color: #fff;">টিকটকে HD ভিডিও আপলোডের সিক্রেট ট্রিকস</h3>
                     </div>
 
                     <div class="about-bio-text">
-                        <p>🔥 <strong>১. CapCut বা এডিটর এক্সপোর্ট সেটিংস:</strong></p>
-                        <p>ভিডিও এক্সপোর্ট করার সময় রেজুলেশন હંમેશા <strong>1080p (বা সম্ভব হলে 4K)</strong> সিলেক্ট করুন। ফ্রেম রেট (Frame Rate) কমপক্ষে <strong>60fps</strong> এবং কোডেক High রাখুন।</p>
+                        <p>💻 <strong>১. ব্রাউজার সেটআপ:</strong></p>
+                        <p>প্রথমে <strong>Edge App</strong>-এ গিয়ে আপনার টিকটক আইডিটি লগইন করে নিন।</p>
                         
-                        <p style="margin-top: 12px;">📱 <strong>২. TikTok অ্যাপ সেটিংস (Data Saver বন্ধ রাখুন):</strong></p>
-                        <p>টিকটক অ্যাপের <strong>Settings and Privacy > Data Saver</strong> অপশনটি অবশ্যই বন্ধ (Off) রাখুন।</p>
+                        <p style="margin-top: 10px;">🧹 <strong>২. ক্লিয়ার ডাটা ও ডেস্কটপ মোড:</strong></p>
+                        <p>এরপর টিকটকে গিয়ে <strong>Clear Data</strong> করুন এবং আবার Edge ব্রাউজারে এসে <strong>Desktop Mode</strong> অন করে নিন!</p>
 
-                        <p style="margin-top: 12px;">⚡ <strong>৩. High-Quality Upload অপশন অন করুন:</strong></p>
-                        <p>টিকটকে ভিডিও পোস্ট করার শেষ স্ক্রিনে (যেখানে ক্যাপশন লেখেন) নিচের দিকে <strong>"More Options"</strong> এ ক্লিক করে <strong>"Allow high-quality uploads"</strong> অপশনটি অন করে দিন।</p>
+                        <p style="margin-top: 10px;">🚀 <strong>৩. প্রাইভেট আপলোড পদ্ধতি:</strong></p>
+                        <p>এবার ভিডিও আপলোড করার সময় সঠিক টাইটেল ও হ্যাশট্যাগ লিখে এবং কাভার (Cover) সিলেক্ট করে ভিডিওটি <strong>Private</strong> মোডে আপলোড দিন!</p>
+
+                        <p style="margin-top: 10px;">⏰ <strong>৪. পাবলিক ও ফাইনাল ম্যাজিক (Boom!):</strong></p>
+                        <p>ভিডিও আপলোড দেওয়ার ঠিক <strong>১০ মিনিট পর</strong> টিকটকে ঢুকে ভিডিওটি <strong>Public</strong> করে দিন। এরপর টিকটক থেকে বের হয়ে যান এবং ঠিক <strong>১ ঘণ্টা পর</strong> আবার টিকটকে ঢুকে দেখুন—<strong>Boom!</strong> একবারে ঝকঝকে HD কোয়ালিটি!</p>
                     </div>
 
                     <button class="submit-btn" onclick="closeTiktokModal()"><i class="fas fa-check"></i> বুঝতে পেরেছি</button>
@@ -784,7 +874,7 @@
             <a href="https://youtube.com/@primeauraeditx?si=5nKfJZODYhq1BtA3" target="_blank" title="YouTube" class="social-btn-icon yt"><i class="fa-brands fa-youtube"></i></a>
             <a href="https://www.facebook.com/share/1JPk5Gj1zC/" target="_blank" title="Facebook" class="social-btn-icon fb"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="https://www.tiktok.com/@editzsojib7?_r=1&_t=ZS-98TLyyVKwOD" target="_blank" title="TikTok" class="social-btn-icon tk"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="https://t.me/lyrics_sojib" target="_blank" title="Telegram" class="social-btn-icon tg"><i class="fa-brands fa-telegram"></i></a>
+            <a href="https://wa.me/8801300188953" target="_blank" title="WhatsApp" class="social-btn-icon wa"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
         <p>&copy; 2026 Sojib Store. All Rights Reserved.</p>
     </footer>

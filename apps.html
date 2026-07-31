@@ -10,7 +10,7 @@
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', 'Anek Bangla', sans-serif; }
-        body { background-color: #070a12; color: #fff; padding: 20px; position: relative; min-height: 100vh; }
+        body { background-color: #070a12; color: #fff; padding: 20px; position: relative; min-height: 100vh; padding-bottom: 90px; }
         
         /* Header */
         .header-bar {
@@ -24,8 +24,13 @@
         }
         .back-btn:hover { color: #fff; }
 
-        .page-title { text-align: center; margin-bottom: 30px; }
+        .page-title { text-align: center; margin-bottom: 25px; }
         .page-title h1 { font-size: 28px; color: #38bdf8; }
+        .discount-banner {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(79, 70, 229, 0.15));
+            border: 1px dashed #38bdf8; max-width: 650px; margin: 0 auto 30px;
+            padding: 12px 15px; border-radius: 12px; text-align: center; font-size: 13px; color: #38bdf8; font-weight: 600; line-height: 1.5;
+        }
 
         /* Apps Grid */
         .apps-container {
@@ -38,7 +43,7 @@
             border: 1px solid rgba(56, 189, 248, 0.2);
             border-radius: 16px; padding: 20px;
             display: flex; flex-direction: column; justify-content: space-between;
-            transition: 0.3s ease;
+            transition: 0.3s ease; position: relative;
         }
         .app-card:hover { transform: translateY(-5px); border-color: #38bdf8; }
 
@@ -54,12 +59,31 @@
         }
         .price { font-size: 19px; font-weight: 700; color: #38bdf8; }
         
-        .buy-btn {
-            background: linear-gradient(135deg, #38bdf8, #4f46e5);
-            color: #fff; border: none; padding: 8px 16px; border-radius: 8px;
+        .add-cart-btn {
+            background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #38bdf8; padding: 8px 14px; border-radius: 8px;
             font-weight: 600; cursor: pointer; font-size: 13px; transition: 0.3s;
         }
-        .buy-btn:hover { opacity: 0.9; transform: scale(1.03); }
+        .add-cart-btn:hover { background: #38bdf8; color: #000; }
+        .add-cart-btn.added { background: #22c55e; border-color: #22c55e; color: #fff; }
+
+        /* Floating Checkout Bar */
+        .floating-cart-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(13, 18, 30, 0.95); backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(56, 189, 248, 0.3); padding: 15px 20px;
+            display: none; justify-content: space-between; align-items: center;
+            z-index: 1000; box-shadow: 0 -10px 25px rgba(0,0,0,0.5);
+        }
+        .floating-cart-bar.active { display: flex; }
+        .cart-details h4 { font-size: 16px; color: #fff; }
+        .cart-details p { font-size: 12px; color: #38bdf8; margin-top: 2px; }
+        .checkout-main-btn {
+            background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff;
+            border: none; padding: 10px 24px; border-radius: 10px; font-weight: 700;
+            font-size: 15px; cursor: pointer; transition: 0.2s;
+        }
+        .checkout-main-btn:hover { opacity: 0.9; transform: scale(1.02); }
 
         /* 💳 POPUP PAYMENT MODAL STYLES */
         .modal-overlay {
@@ -72,7 +96,7 @@
 
         .payment-card {
             background: #0d121e; border: 1px solid rgba(56, 189, 248, 0.3);
-            border-radius: 20px; width: 100%; max-width: 420px;
+            border-radius: 20px; width: 100%; max-width: 450px;
             padding: 22px; position: relative; box-shadow: 0 15px 30px rgba(0,0,0,0.5);
             max-height: 90vh; overflow-y: auto;
         }
@@ -85,13 +109,17 @@
 
         .modal-header { text-align: center; margin-bottom: 20px; }
         .modal-header h3 { font-size: 20px; color: #38bdf8; margin-bottom: 5px; }
-        .selected-app-badge {
-            display: inline-block; background: rgba(56, 189, 248, 0.1);
-            color: #38bdf8; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600;
+        
+        .summary-box {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px; padding: 12px; margin-bottom: 15px; font-size: 13px;
         }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 6px; color: #94a3b8; }
+        .summary-row.total { font-weight: 700; color: #38bdf8; font-size: 16px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 6px; margin-top: 6px; }
+        .discount-text { color: #22c55e !important; font-weight: 600; }
 
         /* Payment Numbers Area */
-        .payment-methods { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+        .payment-methods { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
         .method-box {
             background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
             border-radius: 12px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;
@@ -112,18 +140,18 @@
         .copy-btn:hover { background: #38bdf8; color: #000; }
 
         /* Form Controls */
-        .form-group { margin-bottom: 14px; text-align: left; }
-        .form-group label { display: block; font-size: 12px; color: #cbd5e1; margin-bottom: 6px; }
+        .form-group { margin-bottom: 12px; text-align: left; }
+        .form-group label { display: block; font-size: 12px; color: #cbd5e1; margin-bottom: 5px; }
         .form-group input {
             width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 8px; padding: 10px 12px; color: #fff; font-size: 13px; outline: none;
+            border-radius: 8px; padding: 9px 12px; color: #fff; font-size: 13px; outline: none;
         }
         .form-group input:focus { border-color: #38bdf8; }
 
         .submit-order-btn {
             width: 100%; background: linear-gradient(135deg, #22c55e, #16a34a);
             color: #fff; border: none; padding: 12px; border-radius: 10px;
-            font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 10px;
+            font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 5px;
         }
 
         /* ✨ PROFESSIONAL SUCCESS MODAL STYLES */
@@ -184,8 +212,22 @@
         <p style="color: #94a3b8; font-size: 14px; margin-top: 5px;">লাইফটাইম এক্সেস ও সরাসরি ভিডিও কল সেটআপ সাপোর্টসহ</p>
     </div>
 
+    <div class="discount-banner">
+        🔥 বিশেষ অফার: ২টি নিলে ৩০০৳ ছাড়, ৩টি নিলে ৪৫০৳ ছাড়!<br>
+        (অর্থাৎ প্রতি অ্যাপে স্পেশাল কম্বো ডিসকাউন্ট যুক্ত হবে)
+    </div>
+
     <!-- APPS GRID -->
     <div class="apps-container" id="appsListContainer"></div>
+
+    <!-- 🛒 FLOATING CHECKOUT BAR -->
+    <div class="floating-cart-bar" id="floatingCart">
+        <div class="cart-details">
+            <h4 id="cartCountText">0 Apps Selected</h4>
+            <p id="cartPriceText">Total: ৳0</p>
+        </div>
+        <button class="checkout-main-btn" onclick="openPaymentModal()">Proceed to Order</button>
+    </div>
 
     <!-- 💳 PAYMENT POPUP MODAL -->
     <div class="modal-overlay" id="paymentModal">
@@ -194,8 +236,11 @@
             
             <div class="modal-header">
                 <h3>Complete Payment</h3>
-                <span class="selected-app-badge" id="modalAppName">App Name - Price</span>
+                <p style="font-size: 12px; color: #94a3b8;">একাধিক অ্যাপের অর্ডার সামারি</p>
             </div>
+
+            <!-- Price Summary Box -->
+            <div class="summary-box" id="orderSummaryBox"></div>
 
             <!-- Copyable Numbers -->
             <div class="payment-methods">
@@ -260,25 +305,27 @@
     <div class="toast" id="toastMsg">Number Copied!</div>
 
     <script>
-        // আপনার ফাইল ম্যানেজার অনুযায়ী সঠিক ইমেজ ফাইলের নাম এখানে বসানো হয়েছে
         const appsData = [
-            { id: 1, name: "CapCut Premium", desc: "Pro Video Editor", price: "৯৯৯৳", icon: "capcut.png" },
-            { id: 2, name: "Alight Motion Pro", desc: "Motion Graphics & Animation", price: "৭৯৯৳", icon: "alightmotion.png" },
-            { id: 3, name: "Lightroom Premium", desc: "Color Grading & Presets", price: "৮৯৯৳", icon: "lightroom.png" },
-            { id: 4, name: "Wink VIP", desc: "4K Video Quality Enhancer", price: "৮৯৯৳", icon: "wink.png" },
-            { id: 5, name: "PicsArt Gold", desc: "Photo & Graphic Design", price: "৪৯৯৳", icon: "picsart.png" },
-            { id: 6, name: "VN Video Editor Pro", desc: "Professional Multi-track Editor", price: "৫৯৯৳", icon: "vn.png" },
-            { id: 7, name: "VSCO X Membership", desc: "Aesthetic Filters & Camera", price: "৬৯৯৳", icon: "vsco.png" },
-            { id: 8, name: "Remini Pro", desc: "AI Photo & Video Enhancer", price: "৭৯৯৳", icon: "remini.png" },
-            { id: 9, name: "KineMaster Premium", desc: "4K Timeline Video Editing", price: "৬৯৯৳", icon: "kinemaster.png" },
-            { id: 10, name: "InShot Pro", desc: "Reels & Shorts Video Maker", price: "৪৯৯৳", icon: "inshot.png" }
+            { id: 1, name: "CapCut Premium", desc: "Pro Video Editor", priceNum: 999, icon: "capcut.png" },
+            { id: 2, name: "Alight Motion Pro", desc: "Motion Graphics & Animation", priceNum: 799, icon: "alightmotion.png" },
+            { id: 3, name: "Lightroom Premium", desc: "Color Grading & Presets", priceNum: 899, icon: "lightroom.png" },
+            { id: 4, name: "Wink VIP", desc: "4K Video Quality Enhancer", priceNum: 899, icon: "wink.png" },
+            { id: 5, name: "PicsArt Gold", desc: "Photo & Graphic Design", priceNum: 499, icon: "picsart.png" },
+            { id: 6, name: "VN Video Editor Pro", desc: "Professional Multi-track Editor", priceNum: 599, icon: "vn.png" },
+            { id: 7, name: "VSCO X Membership", desc: "Aesthetic Filters & Camera", priceNum: 699, icon: "vsco.png" },
+            { id: 8, name: "Remini Pro", desc: "AI Photo & Video Enhancer", priceNum: 799, icon: "remini.png" },
+            { id: 9, name: "KineMaster Premium", desc: "4K Timeline Video Editing", priceNum: 699, icon: "kinemaster.png" },
+            { id: 10, name: "InShot Pro", desc: "Reels & Shorts Video Maker", priceNum: 499, icon: "inshot.png" }
         ];
+
+        let cart = [];
 
         function renderApps() {
             const container = document.getElementById('appsListContainer');
             container.innerHTML = "";
 
             appsData.forEach(app => {
+                const isSelected = cart.some(item => item.id === app.id);
                 container.innerHTML += `
                     <div class="app-card">
                         <div class="app-info">
@@ -289,16 +336,69 @@
                             </div>
                         </div>
                         <div class="app-price-box">
-                            <span class="price">${app.price}</span>
-                            <button class="buy-btn" onclick="openPaymentModal('${app.name}', '${app.price}')">Order Now</button>
+                            <span class="price">${app.priceNum}৳</span>
+                            <button class="add-cart-btn ${isSelected ? 'added' : ''}" onclick="toggleCart(${app.id})">
+                                ${isSelected ? '<i class="fas fa-check"></i> Selected' : 'Add to Cart'}
+                            </button>
                         </div>
                     </div>
                 `;
             });
         }
 
-        function openPaymentModal(appName, appPrice) {
-            document.getElementById('modalAppName').innerText = `${appName} - ${appPrice}`;
+        function toggleCart(appId) {
+            const app = appsData.find(item => item.id === appId);
+            const index = cart.findIndex(item => item.id === appId);
+
+            if (index > -1) {
+                cart.splice(index, 1);
+                showToast(app.name + " কার্ট থেকে বাদ দেওয়া হয়েছে");
+            } else {
+                cart.push(app);
+                showToast(app.name + " কার্টে যোগ করা হয়েছে");
+            }
+
+            renderApps();
+            updateCartBar();
+        }
+
+        function calculateDiscount(count) {
+            if (count < 2) return 0;
+            // ২ টিতে ৩০০, ৩ টিতে ৪৫০ (প্রতি অ্যাপে ১৫০ করে ছাড়)
+            return count * 150;
+        }
+
+        function updateCartBar() {
+            const cartBar = document.getElementById('floatingCart');
+            if (cart.length > 0) {
+                cartBar.classList.add('active');
+                document.getElementById('cartCountText').innerText = `${cart.length} App(s) Selected`;
+                
+                let subtotal = cart.reduce((sum, item) => sum + item.priceNum, 0);
+                let discount = calculateDiscount(cart.length);
+                let total = subtotal - discount;
+
+                document.getElementById('cartPriceText').innerText = `Total: ৳${total} ${discount > 0 ? `(৳${discount} Discount)` : ''}`;
+            } else {
+                cartBar.classList.remove('active');
+            }
+        }
+
+        function openPaymentModal() {
+            if (cart.length === 0) return;
+
+            let subtotal = cart.reduce((sum, item) => sum + item.priceNum, 0);
+            let discount = calculateDiscount(cart.length);
+            let total = subtotal - discount;
+
+            let summaryHTML = `
+                <div class="summary-row"><span>নির্বাচিত অ্যাপসমূহ:</span> <strong>${cart.map(i => i.name).join(', ')}</strong></div>
+                <div class="summary-row"><span>মূল মূল্য:</span> <strong>৳${subtotal}</strong></div>
+                <div class="summary-row discount-text"><span>ডিসকাউন্ট (${cart.length} অ্যাপে):</span> <strong>-৳${discount}</strong></div>
+                <div class="summary-row total"><span>সর্বমোট প্রদেয়:</span> <span>৳${total}</span></div>
+            `;
+
+            document.getElementById('orderSummaryBox').innerHTML = summaryHTML;
             document.getElementById('paymentModal').classList.add('active');
         }
 
@@ -308,6 +408,9 @@
 
         function closeSuccessModal() {
             document.getElementById('successModal').classList.remove('active');
+            cart = [];
+            renderApps();
+            updateCartBar();
         }
 
         function copyNumber(elementId) {
@@ -329,15 +432,20 @@
         function handleFormSubmit(e) {
             e.preventDefault();
             
-            const appName = document.getElementById('modalAppName').innerText;
-            const whatsapp = document.getElementById('whatsapp').value;
-            const trxId = document.getElementById('trxId').value;
-            const time = new Date().toLocaleString();
+            let subtotal = cart.reduce((sum, item) => sum + item.priceNum, 0);
+            let discount = calculateDiscount(cart.length);
+            let total = subtotal - discount;
 
-            const newOrder = { appName, whatsapp, trxId, time };
+            const orderDetails = {
+                apps: cart.map(i => i.name).join(', '),
+                totalPrice: total + '৳',
+                whatsapp: document.getElementById('whatsapp').value,
+                trxId: document.getElementById('trxId').value,
+                time: new Date().toLocaleString()
+            };
 
             let orders = JSON.parse(localStorage.getItem('storeOrders')) || [];
-            orders.push(newOrder);
+            orders.push(orderDetails);
             localStorage.setItem('storeOrders', JSON.stringify(orders));
 
             closeModal();
