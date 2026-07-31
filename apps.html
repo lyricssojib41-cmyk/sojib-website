@@ -43,7 +43,7 @@
         .app-card:hover { transform: translateY(-5px); border-color: #38bdf8; }
 
         .app-info { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
-        .app-info img { width: 55px; height: 55px; border-radius: 12px; object-fit: cover; background: #fff; }
+        .app-info img { width: 55px; height: 55px; border-radius: 14px; object-fit: cover; background: #1e293b; padding: 4px; border: 1px solid rgba(255,255,255,0.1); }
         .app-info h3 { font-size: 18px; color: #fff; }
         .app-info p { font-size: 12px; color: #94a3b8; }
 
@@ -260,16 +260,16 @@
 
     <script>
         const appsData = [
-            { id: 1, name: "CapCut Premium", desc: "Pro Video Editor", price: "৯৯৯৳", icon: "capcut.png" },
-            { id: 2, name: "Alight Motion Pro", desc: "Motion Graphics & Animation", price: "৭৯৯৳", icon: "alightmotion.png" },
-            { id: 3, name: "Lightroom Premium", desc: "Color Grading & Presets", price: "৮৯৯৳", icon: "lightroom.png" },
-            { id: 4, name: "Wink VIP", desc: "4K Video Quality Enhancer", price: "৮৯৯৳", icon: "wink.png" },
-            { id: 5, name: "PicsArt Gold", desc: "Photo & Graphic Design", price: "৪৯৯৳", icon: "picsart.png" },
-            { id: 6, name: "VN Video Editor Pro", desc: "Professional Multi-track Editor", price: "৫৯৯৳", icon: "capcut.png" },
-            { id: 7, name: "VSCO X Membership", desc: "Aesthetic Filters & Camera", price: "৬৯৯৳", icon: "vsco.png" },
-            { id: 8, name: "Remini Pro", desc: "AI Photo & Video Enhancer", price: "৭৯৯৳", icon: "remini.png" },
-            { id: 9, name: "KineMaster Premium", desc: "4K Timeline Video Editing", price: "৬৯৯৳", icon: "kinemaster.png" },
-            { id: 10, name: "InShot Pro", desc: "Reels & Shorts Video Maker", price: "৪৯৯৳", icon: "inshot.png" }
+            { id: 1, name: "CapCut Premium", desc: "Pro Video Editor", price: "৯৯৯৳", icon: "https://images.seeklogo.com/logo-png/43/2/capcut-logo-png_seeklogo-437597.png" },
+            { id: 2, name: "Alight Motion Pro", desc: "Motion Graphics & Animation", price: "৭৯৯৳", icon: "https://play-lh.googleusercontent.com/4q6_B25Y9gX6S9a-dK6_4xQy6Jz_qXw6K_Q4xQy6Jz_qXw6K_Q4xQy6Jz_qXw6K=w240-h480-rw" },
+            { id: 3, name: "Lightroom Premium", desc: "Color Grading & Presets", price: "৮৯৯৳", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Adobe_Photoshop_Lightroom_CC_logo.svg/512px-Adobe_Photoshop_Lightroom_CC_logo.svg.png" },
+            { id: 4, name: "Wink VIP", desc: "4K Video Quality Enhancer", price: "৮৯৯৳", icon: "https://play-lh.googleusercontent.com/D_bL0gK9gX6S9a-dK6_4xQy6Jz_qXw6K_Q4xQy6Jz_qXw6K_Q4xQy6Jz_qXw6=w240-h480-rw" },
+            { id: 5, name: "PicsArt Gold", desc: "Photo & Graphic Design", price: "৪৯৯৳", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/PicsArt_logo.svg/512px-PicsArt_logo.svg.png" },
+            { id: 6, name: "VN Video Editor Pro", desc: "Professional Multi-track Editor", price: "৫৯৯৳", icon: "https://play-lh.googleusercontent.com/9C8_Q27x_qXw6K_Q4xQy6Jz_qXw6K_Q4xQy6Jz_qXw6K_Q4xQy6Jz_qXw6K=w240-h480-rw" },
+            { id: 7, name: "VSCO X Membership", desc: "Aesthetic Filters & Camera", price: "৬৯৯৳", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/VSCO_logo.svg/512px-VSCO_logo.svg.png" },
+            { id: 8, name: "Remini Pro", desc: "AI Photo & Video Enhancer", price: "৭৯৯৳", icon: "https://play-lh.googleusercontent.com/6X8_Q27x_qXw6K_Q4xQy6Jz_qXw6K_Q4xQy6Jz_qXw6K_Q4xQy6Jz_qXw6K=w240-h480-rw" },
+            { id: 9, name: "KineMaster Premium", desc: "4K Timeline Video Editing", price: "৬৯৯৳", icon: "https://play-lh.googleusercontent.com/N6K8_Q27x_qXw6K_Q4xQy6Jz_qXw6K_Q4xQy6Jz_qXw6K_Q4xQy6Jz_qXw6K=w240-h480-rw" },
+            { id: 10, name: "InShot Pro", desc: "Reels & Shorts Video Maker", price: "৪৯৯৳", icon: "https://play-lh.googleusercontent.com/5X8_Q27x_qXw6K_Q4xQy6Jz_qXw6K_Q4xQy6Jz_qXw6K_Q4xQy6Jz_qXw6K=w240-h480-rw" }
         ];
 
         function renderApps() {
@@ -280,7 +280,7 @@
                 container.innerHTML += `
                     <div class="app-card">
                         <div class="app-info">
-                            <img src="${app.icon}" alt="${app.name}" onerror="this.src='https://via.placeholder.com/55/38bdf8/ffffff?text=App'">
+                            <img src="${app.icon}" alt="${app.name}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1043/1043444.png'">
                             <div>
                                 <h3>${app.name}</h3>
                                 <p>${app.desc}</p>
